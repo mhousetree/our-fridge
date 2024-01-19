@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@next-auth/firebase-adapter':
+    specifier: ^2.0.1
+    version: 2.0.1(firebase-admin@12.0.0)(next-auth@4.24.5)
   firebase-admin:
     specifier: ^12.0.0
     version: 12.0.0
@@ -324,6 +327,16 @@ packages:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
+
+  /@next-auth/firebase-adapter@2.0.1(firebase-admin@12.0.0)(next-auth@4.24.5):
+    resolution: {integrity: sha512-4bQTa+IU8/I/mSOQcnrpQ9BYM6Xpk5BJx1TrxDpk4xKl2z0ZKE7Un+yl+U/9crmfpTvCoLOh6j9axmJMacJV2w==}
+    peerDependencies:
+      firebase-admin: ^11.4.1
+      next-auth: ^4
+    dependencies:
+      firebase-admin: 12.0.0
+      next-auth: 4.24.5(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)
+    dev: false
 
   /@next/env@14.1.0:
     resolution: {integrity: sha512-Py8zIo+02ht82brwwhTg36iogzFqGLPXlRGKQw5s+qP/kMNc4MAyDeEwBKDijk6zTIbegEgu8Qy7C1LboslQAw==}
@@ -3883,3 +3896,4 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+    requiresBuild: true
