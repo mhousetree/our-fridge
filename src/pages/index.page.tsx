@@ -1,6 +1,7 @@
 import { Item } from '@/types/item';
 import { fetchAsyncToJson } from '@/utils/fetch';
 import { GetStaticProps, NextPage } from 'next';
+import { signIn, useSession } from 'next-auth/react';
 import { Noto_Sans_JP } from 'next/font/google';
 
 const noto = Noto_Sans_JP({ subsets: ['latin'] });
@@ -8,6 +9,7 @@ const noto = Noto_Sans_JP({ subsets: ['latin'] });
 type Props = { data: Item[] };
 
 const Home: NextPage<Props> = ({ data }) => {
+  const { data: session } = useSession();
   return (
     <main className={noto.className}>
       <h1>みんなの冷蔵庫</h1>
@@ -18,6 +20,11 @@ const Home: NextPage<Props> = ({ data }) => {
           </li>
         ))}
       </ul>
+      {session ? (
+        session.user.id
+      ) : (
+        <button onClick={() => signIn()}>サインイン</button>
+      )}
     </main>
   );
 };

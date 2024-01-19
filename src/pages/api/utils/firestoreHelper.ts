@@ -13,7 +13,5 @@ export const getItems = async (): Promise<NonNullable<Item[]>> => {
     items.push({ ...item.data(), id: item.id } as Item);
   });
 
-  console.log(items);
-
   return items;
 };
