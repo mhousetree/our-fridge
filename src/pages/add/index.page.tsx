@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useSWRConfig } from 'swr';
 import { FormValues, formSchema } from './useAddForm';
 import { usePostItem } from './usePostItem';
 
@@ -15,10 +16,12 @@ const AddPage: NextPage = () => {
   });
   const router = useRouter();
   const { trigger, isMutating } = usePostItem();
+  const { mutate } = useSWRConfig();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log(data);
     try {
       await trigger(data);
+      await mutate('/api/items', undefined, { revalidate: false });
       router.push('/');
     } catch (error) {
       console.log(error);
