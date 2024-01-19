@@ -1,6 +1,6 @@
 import { Item } from '@/types/item';
 import { fetchAsyncToJson } from '@/utils/fetch';
-import { GetStaticProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { signIn, useSession } from 'next-auth/react';
 import { Noto_Sans_JP } from 'next/font/google';
 
@@ -29,7 +29,7 @@ const Home: NextPage<Props> = ({ data }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
   try {
     const data = await fetchAsyncToJson<Item[]>(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/items`
