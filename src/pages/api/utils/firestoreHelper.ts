@@ -1,7 +1,9 @@
 import { FormValues } from '@/pages/add/useAddForm';
 import { FirestoreUser } from '@/types/firestore/user';
 import { Item } from '@/types/item';
+import { User } from '@/types/user';
 import { FieldValue, getFirestore } from 'firebase-admin/firestore';
+import { NotFoundError } from './NotFoundError';
 import { app } from './firebaseHelper';
 
 const db = getFirestore(app);
@@ -29,7 +31,7 @@ export const postItem = async (
     const userDoc = await transaction.get(userRef);
 
     if (!userDoc.exists) {
-      throw new Error(`${userId} ID not found.`);
+      throw new NotFoundError(`${userId} ID not found.`);
     }
 
     const items = (userDoc.data() as FirestoreUser | undefined)?.items ?? [];
@@ -48,4 +50,15 @@ export const postItem = async (
       updatedAt: FieldValue.serverTimestamp(),
     });
   });
+};
+
+export const getUser = async (userId: string): Promise<NonNullable<User>> => {
+  const userRef = db.collection('users').doc(userId);
+  const doc = await userRef.get();
+
+  if (!doc.exists) {
+    throw new NotFoundError(`${userId} ID not found.`);
+  }
+
+  return { ...doc.data(), id: userId } as User;
 };
