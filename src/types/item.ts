@@ -1,6 +1,6 @@
 export type Item = {
   id: string;
-  title: string;
+  name: string;
   stock: number;
-  owner: string;
+  userId: string;
 };

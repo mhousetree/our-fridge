@@ -16,7 +16,7 @@ const Home: NextPage<Props> = ({ data }) => {
       <ul>
         {data.map((item) => (
           <li key={item.id}>
-            {item.owner}さんの{item.title}&emsp;{item.stock}個
+            {item.userId}さんの{item.name}&emsp;{item.stock}個
           </li>
         ))}
       </ul>
