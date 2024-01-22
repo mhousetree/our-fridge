@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import { Kaisei_HarunoUmi } from 'next/font/google';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { IconUser } from '../IconUser';
 import { TwitterLoginButton } from '../TwitterLoginButton';
 
@@ -13,21 +13,35 @@ const logo = Kaisei_HarunoUmi({ weight: '700', subsets: ['latin'] });
 export const Header: React.FC = () => {
   const { data: session } = useSession();
   const [user, setUser] = useState<User>();
-  const [isLoading, setLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (session !== undefined) {
+    if (session?.user.id !== undefined) {
       fetchAsyncToJson<User>(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/${session?.user.id}`
       ).then((data) => {
         setUser(data);
-        setLoading(false);
       });
     }
-  }, [setUser, setLoading, session]);
+    setIsLoading(false);
+  }, [setUser, setIsLoading, session]);
 
-  if (isLoading) return <p>Loading</p>;
-  if (!user) return <p>Error</p>;
+  const renderLoginOrProfile = useCallback(() => {
+    if (isLoading) {
+      return <p>Loading</p>;
+    } else if (session?.user.id === undefined) {
+      return <TwitterLoginButton />;
+    } else if (!user) {
+      return <p>Login Error</p>;
+    } else {
+      return (
+        <div className="flex items-center">
+          <IconUser user={user} />
+          <span className="ml-1">としてログイン中</span>
+        </div>
+      );
+    }
+  }, [session, user, isLoading]);
 
   return (
     <header className="flex justify-between py-4">
@@ -36,15 +50,7 @@ export const Header: React.FC = () => {
           みんなの冷蔵庫
         </Link>
       </h1>
-
-      {session ? (
-        <div className="flex items-center">
-          <IconUser user={user} />
-          <span className="ml-1">としてログイン中</span>
-        </div>
-      ) : (
-        <TwitterLoginButton />
-      )}
+      {renderLoginOrProfile()}
     </header>
   );
 };
