@@ -1,25 +1,43 @@
 import { Item } from '@/types/item';
 import { fetchAsyncToJson } from '@/utils/fetch';
 import { GetServerSideProps, NextPage } from 'next';
+import { User } from 'next-auth';
 import { signIn, useSession } from 'next-auth/react';
 import { Noto_Sans_JP } from 'next/font/google';
+import Link from 'next/link';
+import React from 'react';
 
 const noto = Noto_Sans_JP({ subsets: ['latin'] });
 
-type Props = { data: Item[] };
+type UserById = { [key: string]: User };
 
-const Home: NextPage<Props> = ({ data }) => {
+type Props = { items: Item[]; userById: UserById };
+
+const Home: NextPage<Props> = ({ items, userById }) => {
   const { data: session } = useSession();
   return (
     <main className={noto.className}>
       <h1>みんなの冷蔵庫</h1>
-      <ul>
-        {data.map((item) => (
-          <li key={item.id}>
-            {item.userId}さんの{item.name}&emsp;{item.stock}個
-          </li>
-        ))}
-      </ul>
+      {items.length === 0 ? (
+        <p>冷蔵庫はまだ空っぽです。</p>
+      ) : (
+        <dl className="grid grid-cols-2">
+          {items.map((item) => (
+            <React.Fragment key={item.id}>
+              <dt>
+                <Link href={`/personal/${item.userId}`}>
+                  {userById[item.userId].name}
+                </Link>
+                さんの{item.name}
+              </dt>
+              <dd>{item.stock}個</dd>
+            </React.Fragment>
+          ))}
+        </dl>
+      )}
+
+      <Link href="/add">何か入れる</Link>
+
       {session ? (
         session.user.id
       ) : (
@@ -31,12 +49,20 @@ const Home: NextPage<Props> = ({ data }) => {
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   try {
-    const data = await fetchAsyncToJson<Item[]>(
+    const items = await fetchAsyncToJson<Item[]>(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/items`
     );
+    const users = await fetchAsyncToJson<User[]>(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users`
+    );
+    const userById = users.reduce((acc: UserById, obj) => {
+      acc[obj.id] = obj;
+      return acc;
+    }, {});
     return {
       props: {
-        data: data,
+        items,
+        userById,
       },
     };
   } catch (error) {

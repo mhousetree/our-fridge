@@ -52,6 +52,20 @@ export const postItem = async (
   });
 };
 
+export const getUsers = async (): Promise<NonNullable<User[]>> => {
+  const usersRef = db.collection('users');
+  const snapshot = await usersRef.get();
+
+  console.log(snapshot);
+
+  const users: User[] = [];
+  snapshot.forEach((user) => {
+    users.push({ ...user.data(), id: user.id } as User);
+  });
+
+  return users;
+};
+
 export const getUser = async (userId: string): Promise<NonNullable<User>> => {
   const userRef = db.collection('users').doc(userId);
   const doc = await userRef.get();
