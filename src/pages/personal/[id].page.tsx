@@ -2,9 +2,11 @@ import { Layout } from '@/components/Layout';
 import { User } from '@/types/user';
 import { FetchError } from '@/utils/FetchError';
 import { fetchAsyncToJson } from '@/utils/fetch';
+import clsx from 'clsx';
 import { GetServerSideProps, NextPage } from 'next';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 type Params = {
   id: string;
@@ -15,24 +17,32 @@ type Props = {
 };
 
 const PersonalPage: NextPage<Props> = ({ data }) => {
+  const { data: session } = useSession();
+  const isMyPage = useMemo<boolean>(
+    () => data.id === session?.user.id,
+    [session, data]
+  );
   return (
     <Layout>
-      <div>
-        <h1 className="text-xl">{data.name}さんの冷蔵庫</h1>
-        {data.items === undefined ? (
-          <p>{data.name}の冷蔵庫はまだ空っぽです。</p>
-        ) : (
-          <dl className="grid grid-cols-2">
-            {data.items.map((item) => (
-              <React.Fragment key={item.id}>
-                <dt>{item.name}</dt>
-                <dd>{item.stock}個</dd>
-              </React.Fragment>
-            ))}
-          </dl>
-        )}
-        <Link href="/">みんなの冷蔵庫を見る</Link>
-      </div>
+      <h1 className="text-xl">{data.name}さんの冷蔵庫</h1>
+      {data.items === undefined ? (
+        <p>{data.name}の冷蔵庫はまだ空っぽです。</p>
+      ) : (
+        <dl className={clsx('grid', isMyPage ? 'grid-cols-3' : 'grid-cols-2')}>
+          {data.items.map((item) => (
+            <React.Fragment key={item.id}>
+              <dt>{item.name}</dt>
+              <dd>{item.stock}個</dd>
+              {isMyPage && (
+                <dd>
+                  <Link href={`/update/${item.id}`}>たべた</Link>
+                </dd>
+              )}
+            </React.Fragment>
+          ))}
+        </dl>
+      )}
+      <Link href="/">みんなの冷蔵庫を見る</Link>
     </Layout>
   );
 };

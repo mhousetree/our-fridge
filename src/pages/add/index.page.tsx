@@ -1,10 +1,10 @@
+import { Layout } from '@/components/Layout';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormValues, formSchema } from './useAddForm';
 import { usePostItem } from './usePostItem';
-import { Layout } from '@/components/Layout';
 
 const AddPage: NextPage = () => {
   const {
@@ -30,7 +30,7 @@ const AddPage: NextPage = () => {
   return (
     <Layout>
       <form
-        id="hoge"
+        id="add_form"
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-2 w-80"
       >
@@ -46,7 +46,7 @@ const AddPage: NextPage = () => {
           id="stock"
           {...register('stock', { valueAsNumber: true })}
         />
-        <button form="hoge" type="submit" disabled={isMutating}>
+        <button form="add_form" type="submit" disabled={isMutating}>
           冷蔵庫に入れる
         </button>
       </form>
