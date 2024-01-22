@@ -1,13 +1,11 @@
+import { Layout } from '@/components/Layout';
 import { Item } from '@/types/item';
 import { fetchAsyncToJson } from '@/utils/fetch';
 import { GetServerSideProps, NextPage } from 'next';
 import { User } from 'next-auth';
-import { signIn, useSession } from 'next-auth/react';
-import { Noto_Sans_JP } from 'next/font/google';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react';
-
-const noto = Noto_Sans_JP({ subsets: ['latin'] });
 
 type UserById = { [key: string]: User };
 
@@ -16,8 +14,7 @@ type Props = { items: Item[]; userById: UserById };
 const Home: NextPage<Props> = ({ items, userById }) => {
   const { data: session } = useSession();
   return (
-    <main className={noto.className}>
-      <h1>みんなの冷蔵庫</h1>
+    <Layout>
       {items.length === 0 ? (
         <p>冷蔵庫はまだ空っぽです。</p>
       ) : (
@@ -37,13 +34,7 @@ const Home: NextPage<Props> = ({ items, userById }) => {
       )}
 
       <Link href="/add">何か入れる</Link>
-
-      {session ? (
-        session.user.id
-      ) : (
-        <button onClick={() => signIn()}>サインイン</button>
-      )}
-    </main>
+    </Layout>
   );
 };
 

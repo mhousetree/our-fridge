@@ -1,3 +1,4 @@
+import { Layout } from '@/components/Layout';
 import { User } from '@/types/user';
 import { FetchError } from '@/utils/FetchError';
 import { fetchAsyncToJson } from '@/utils/fetch';
@@ -15,22 +16,24 @@ type Props = {
 
 const PersonalPage: NextPage<Props> = ({ data }) => {
   return (
-    <div>
-      <h1>{data.name}さんの冷蔵庫</h1>
-      {data.items === undefined ? (
-        <p>{data.name}の冷蔵庫はまだ空っぽです。</p>
-      ) : (
-        <dl className="grid grid-cols-2">
-          {data.items.map((item) => (
-            <React.Fragment key={item.id}>
-              <dt>{item.name}</dt>
-              <dd>{item.stock}個</dd>
-            </React.Fragment>
-          ))}
-        </dl>
-      )}
-      <Link href="/">みんなの冷蔵庫を見る</Link>
-    </div>
+    <Layout>
+      <div>
+        <h1 className="text-xl">{data.name}さんの冷蔵庫</h1>
+        {data.items === undefined ? (
+          <p>{data.name}の冷蔵庫はまだ空っぽです。</p>
+        ) : (
+          <dl className="grid grid-cols-2">
+            {data.items.map((item) => (
+              <React.Fragment key={item.id}>
+                <dt>{item.name}</dt>
+                <dd>{item.stock}個</dd>
+              </React.Fragment>
+            ))}
+          </dl>
+        )}
+        <Link href="/">みんなの冷蔵庫を見る</Link>
+      </div>
+    </Layout>
   );
 };
 
