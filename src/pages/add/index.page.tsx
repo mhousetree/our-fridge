@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormValues, formSchema } from './useAddForm';
 import { usePostItem } from './usePostItem';
+import { Layout } from '@/components/Layout';
 
 const AddPage: NextPage = () => {
   const {
@@ -27,7 +28,7 @@ const AddPage: NextPage = () => {
   // TODO: style validation
 
   return (
-    <main>
+    <Layout>
       <form
         id="hoge"
         onSubmit={handleSubmit(onSubmit)}
@@ -49,7 +50,7 @@ const AddPage: NextPage = () => {
           冷蔵庫に入れる
         </button>
       </form>
-    </main>
+    </Layout>
   );
 };
 
