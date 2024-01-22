@@ -2,6 +2,7 @@ import { User } from '@/types/user';
 import { FetchError } from '@/utils/FetchError';
 import { fetchAsyncToJson } from '@/utils/fetch';
 import { GetServerSideProps, NextPage } from 'next';
+import Link from 'next/link';
 import React from 'react';
 
 type Params = {
@@ -15,7 +16,7 @@ type Props = {
 const PersonalPage: NextPage<Props> = ({ data }) => {
   return (
     <div>
-      <h1>{data.name}の冷蔵庫</h1>
+      <h1>{data.name}さんの冷蔵庫</h1>
       {data.items === undefined ? (
         <p>{data.name}の冷蔵庫はまだ空っぽです。</p>
       ) : (
@@ -28,6 +29,7 @@ const PersonalPage: NextPage<Props> = ({ data }) => {
           ))}
         </dl>
       )}
+      <Link href="/">みんなの冷蔵庫を見る</Link>
     </div>
   );
 };
