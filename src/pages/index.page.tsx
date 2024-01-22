@@ -3,7 +3,6 @@ import { Item } from '@/types/item';
 import { fetchAsyncToJson } from '@/utils/fetch';
 import { GetServerSideProps, NextPage } from 'next';
 import { User } from 'next-auth';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react';
 
@@ -12,7 +11,6 @@ type UserById = { [key: string]: User };
 type Props = { items: Item[]; userById: UserById };
 
 const Home: NextPage<Props> = ({ items, userById }) => {
-  const { data: session } = useSession();
   return (
     <Layout>
       {items.length === 0 ? (
