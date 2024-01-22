@@ -16,7 +16,6 @@ const AddPage: NextPage = () => {
   const router = useRouter();
   const { trigger, isMutating } = usePostItem();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log(data);
     try {
       await trigger(data);
       router.push('/');
@@ -46,14 +45,7 @@ const AddPage: NextPage = () => {
           id="stock"
           {...register('stock', { valueAsNumber: true })}
         />
-        <button
-          form="hoge"
-          type="submit"
-          onClick={() => {
-            console.log('click');
-          }}
-          disabled={isMutating}
-        >
+        <button form="hoge" type="submit" disabled={isMutating}>
           冷蔵庫に入れる
         </button>
       </form>

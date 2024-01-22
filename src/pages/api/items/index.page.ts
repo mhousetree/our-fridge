@@ -28,8 +28,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       const result = formSchema.safeParse(req.body);
 
-      console.log(req.body);
-
       if (!result.success) {
         res.status(400).json({ message: 'Invalid parameter' });
         return;
