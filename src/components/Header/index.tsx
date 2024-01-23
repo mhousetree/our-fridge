@@ -10,7 +10,11 @@ import { TwitterLoginButton } from '../TwitterLoginButton';
 
 const logo = Kaisei_HarunoUmi({ weight: '700', subsets: ['latin'] });
 
-export const Header: React.FC = () => {
+type Props = {
+  isHome?: boolean;
+};
+
+export const Header: React.FC<Props> = ({ isHome = false }) => {
   const { data: session } = useSession();
   const [user, setUser] = useState<User>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -28,28 +32,39 @@ export const Header: React.FC = () => {
 
   const renderLoginOrProfile = useCallback(() => {
     if (isLoading) {
-      return <p>Loading</p>;
+      return <></>;
     } else if (session?.user.id === undefined) {
       return <TwitterLoginButton />;
     } else if (!user) {
-      return <p>Login Error</p>;
+      return <></>;
     } else {
       return (
-        <div className="flex items-center">
-          <IconUser user={user} />
-          <span className="ml-1">としてログイン中</span>
-        </div>
+        <Link
+          href={`/personal/${user.id}`}
+          className="hover:bg-white/80 p-2 transition-colors rounded-lg text-light-text hover:text-emerald"
+        >
+          <div className="flex items-center">
+            <IconUser user={user} />
+          </div>
+        </Link>
       );
     }
   }, [session, user, isLoading]);
 
   return (
-    <header className="flex justify-between py-4">
-      <h1 className={clsx('text-3xl', logo.className)}>
-        <Link href="/" className="text-red">
-          みんなの冷蔵庫
-        </Link>
-      </h1>
+    <header
+      className={clsx(
+        'flex py-4 items-center',
+        isHome ? 'justify-end' : 'justify-between'
+      )}
+    >
+      {!isHome && (
+        <h1 className={clsx('text-3xl', logo.className)}>
+          <Link href="/" className="text-red">
+            みんなの冷蔵庫
+          </Link>
+        </h1>
+      )}
       {renderLoginOrProfile()}
     </header>
   );

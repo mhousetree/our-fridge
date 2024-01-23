@@ -1,3 +1,4 @@
+import { FaceSmileIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 
 type Props = {
@@ -8,8 +9,11 @@ export const Auth: React.FC<Props> = ({ children }) => {
   const { status } = useSession();
 
   if (status === 'loading') {
-    // TODO: add loading component
-    return <p>Loading</p>;
+    return (
+      <div className="h-96 w-full flex items-center justify-center">
+        <FaceSmileIcon className="animate-spin w-12" />
+      </div>
+    );
   }
 
   return children;

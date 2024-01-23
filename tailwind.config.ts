@@ -9,12 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'light-bg': '#EFE9F4',
-        'light-text': '#0B0014',
+        'light-bg': '#E9F1F7',
+        'light-text': '#435058',
         red: '#D44D5C',
         citron: '#F5F749',
         emerald: '#15616D',
       },
+      gridTemplateColumns: {
+        'items-2': '1fr max-content',
+        'items-3': '1fr max-content max-content',
+      },
+    },
+    screens: {
+      sp: { max: '700px' },
     },
   },
   plugins: [],

@@ -15,9 +15,13 @@ export const IconUser: React.FC<Props> = ({ user, iconSize = 'large' }) => {
         alt={user.name}
         width="48"
         height="48"
-        className={clsx('rounded-full', iconSize === 'small' ? 'w-4' : 'w-8')}
+        className={clsx('rounded-full', iconSize === 'small' ? 'w-6' : 'w-8')}
       />
-      <span className="ml-2">{user.name}</span>
+      <span
+        className={clsx('sp:hidden', iconSize === 'small' ? 'ml-1' : 'ml-1.5')}
+      >
+        {user.name}
+      </span>
     </div>
   );
 };
