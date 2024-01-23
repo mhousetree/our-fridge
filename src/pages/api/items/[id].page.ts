@@ -1,4 +1,4 @@
-import { updateSchema } from '@/utils/useUpdateForm';
+import { updateItemSchema } from '@/pages/update/useUpdateItemForm';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth].page';
@@ -33,7 +33,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return;
       }
 
-      const result = updateSchema.safeParse(req.body);
+      const result = updateItemSchema.safeParse(req.body);
 
       if (!result.success) {
         res.status(400).json({ message: 'Invalid parameter' });

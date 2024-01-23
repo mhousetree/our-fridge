@@ -4,5 +4,5 @@ export type User = {
   id: string;
   name: string;
   image: string;
-  items: Item[] | undefined;
+  items?: Item[] | undefined;
 };

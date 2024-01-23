@@ -2,10 +2,10 @@ import { FormValues } from '@/pages/add/useAddForm';
 import { FirestoreUser } from '@/types/firestore/user';
 import { Item } from '@/types/item';
 import { User } from '@/types/user';
-import { UpdateValues } from '@/utils/useUpdateForm';
 import { FieldValue, getFirestore } from 'firebase-admin/firestore';
 import { NotFoundError } from './NotFoundError';
 import { app } from './firebaseHelper';
+import { UpdateItemValues } from '@/pages/update/useUpdateItemForm';
 
 const db = getFirestore(app);
 
@@ -64,7 +64,7 @@ export const postItem = async (
   });
 };
 
-export const updateItem = async (body: UpdateValues): Promise<void> => {
+export const updateItem = async (body: UpdateItemValues): Promise<void> => {
   const { id, userId, stock } = body;
   const itemRef = db.collection('items').doc(id);
   const userRef = db.collection('users').doc(userId);
