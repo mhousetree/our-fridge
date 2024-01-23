@@ -3,6 +3,7 @@ import { Layout } from '@/components/Layout';
 import { User } from '@/types/user';
 import { FetchError } from '@/utils/FetchError';
 import { fetchAsyncToJson } from '@/utils/fetch';
+import { ChevronLeftIcon } from '@heroicons/react/16/solid/index.js';
 import clsx from 'clsx';
 import { GetServerSideProps, NextPage } from 'next';
 import { useSession } from 'next-auth/react';
@@ -82,9 +83,9 @@ const PersonalPage: NextPage<Props> = ({ data }) => {
       </section>
       <Link
         href="/"
-        className="bg-white/50 hover:bg-white/80 py-2 px-4 w-fit mx-auto mt-8 rounded-lg flex items-center"
+        className="bg-white/50 hover:bg-white/80 py-2 px-4 w-fit mx-auto mt-8 rounded-lg flex items-center transition-colors"
       >
-        <span className="text-[10px]">◀️</span>
+        <ChevronLeftIcon className="w-4 h-4 mt-0.5" />
         <span className="ml-2">みんなの冷蔵庫に戻る</span>
       </Link>
     </Layout>

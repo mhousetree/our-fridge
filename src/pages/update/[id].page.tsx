@@ -114,9 +114,12 @@ export const UpdatePage: NextPage<Props> = ({ data }) => {
   }
   return (
     <Layout>
-      <section className="text-center flex flex-col">
-        <p className="font-semibold">{data.name}を</p>
-        <div className="flex w-fit items-center mx-auto mt-4">
+      <section className="text-center flex flex-col pt-4">
+        <p className="font-semibold">
+          <span className="text-2xl">{data.name}</span>
+          <span className="ml-2">を</span>
+        </p>
+        <div className="flex w-fit items-center mx-auto mt-8">
           <div className="grid grid-rows-2 grid-cols-3 bg-white rounded-md items-center w-fit overflow-hidden">
             {stock.map((item) => (
               <div
@@ -172,8 +175,7 @@ export const UpdatePage: NextPage<Props> = ({ data }) => {
                       : undefined
                   }
                   defaultValue={4}
-                  disabled={selectedStock !== 'more'}
-                  className="disabled:bg-white/50 text-right border rounded h-7 w-14"
+                  className="disabled:bg-white/50 text-right border rounded h-7 w-14 sp:text-center"
                   onChange={handleMoreStockChange}
                 />
                 ）
@@ -242,7 +244,7 @@ export const UpdatePage: NextPage<Props> = ({ data }) => {
               !Number.isInteger(newStock) ||
               isMoreStockEmpty
             }
-            className="mt-12 block bg-white py-2 px-4 w-fit mx-auto rounded-lg font-semibold text-light-text transition-colors hover:bg-citron disabled:bg-light-text/10 disabled:text-light-text/60"
+            className="mt-12 block bg-white py-2 px-4 w-fit mx-auto rounded-lg font-semibold text-light-text transition-colors hover:bg-citron disabled:bg-light-text/10 disabled:text-light-text/60 sp:text-lg"
           >
             更新する！
           </button>

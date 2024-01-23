@@ -44,7 +44,7 @@ export const Header: React.FC<Props> = ({ isHome = false }) => {
           className="hover:bg-white/80 p-2 transition-colors rounded-lg text-light-text hover:text-emerald"
         >
           <div className="flex items-center">
-            <IconUser user={user} />
+            <IconUser isNameHidden user={user} />
           </div>
         </Link>
       );

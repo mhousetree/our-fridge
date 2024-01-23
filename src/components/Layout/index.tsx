@@ -16,7 +16,7 @@ export const Layout: React.FC<Props> = ({ children }) => {
   return (
     <div className={clsx('max-w-2xl mx-auto sp:px-4', noto.className)}>
       <Header isHome={router.pathname === '/'} />
-      <main>
+      <main className="pb-8">
         <Auth>{children}</Auth>
       </main>
     </div>
