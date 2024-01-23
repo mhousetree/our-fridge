@@ -52,8 +52,10 @@ const AddPage: NextPage = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col items-center justify-center h-full my-16"
       >
-        <label htmlFor="name" className="font-semibold">
-          冷蔵庫に入っているお気に入りのアイテムは？
+        <label htmlFor="name" className="font-semibold text-lg text-center">
+          冷蔵庫に入っている
+          <br className="hidden sp:block" />
+          お気に入りのアイテムは？
         </label>
         <StockFormInput
           type="text"
@@ -69,13 +71,7 @@ const AddPage: NextPage = () => {
             アイテム名を入力してください！
           </p>
         )}
-        <label
-          htmlFor="stock"
-          className={clsx(
-            'font-semibold mt-12',
-            errors.stock ? 'text-red-500' : ''
-          )}
-        >
+        <label htmlFor="stock" className="font-semibold mt-12 sp:text-lg">
           それは今冷蔵庫にいくつ入ってる？
         </label>
         <StockFormInput
@@ -102,9 +98,9 @@ const AddPage: NextPage = () => {
           form="add_form"
           type="submit"
           disabled={isMutating}
-          className="mt-12 block bg-white py-2 px-4 w-fit mx-auto rounded-lg font-semibold text-light-text transition-colors hover:bg-citron"
+          className="mt-12 block bg-white py-2 px-4 w-fit mx-auto rounded-lg font-semibold text-light-text transition-colors hover:bg-citron disabled:bg-light-text/10 disabled:text-light-text/60 sp:text-lg"
         >
-          冷蔵庫に入れる！
+          登録する！
         </button>
       </form>
     </Layout>

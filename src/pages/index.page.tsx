@@ -27,13 +27,17 @@ const Home: NextPage<Props> = ({ items, userById }) => {
         <br />
         <span className="text-4xl">オンライン</span>
       </h1>
-      <section className="mt-8 text-center">
+      <section className="mt-8 sp:mt-2 text-center">
         <p>
-          みんなの冷蔵庫では「常備しておくとうれしいアイテム」のストック情報を登録したり、
+          みんなの冷蔵庫では 「常備しておくと
+          <br className="hidden sp:block" />
+          うれしいアイテム」のストック情報を登録したり、
           <br />
-          他のユーザーが登録したアイテムの情報を見たりすることができます。
+          他のユーザーが登録したアイテムの情報を
+          <br className="hidden sp:block" />
+          見たりすることができます。
         </p>
-        <p>レッツ、れいぞうコミュニケーション！</p>
+        <p className="mt-2">レッツ、れいぞうコミュニケーション！</p>
       </section>
       <Link
         href="/add"
@@ -45,20 +49,26 @@ const Home: NextPage<Props> = ({ items, userById }) => {
         {items.length === 0 ? (
           <p className="text-center">冷蔵庫はまだ空っぽです。</p>
         ) : (
-          <dl className="grid grid-cols-items-2 gap-x-6 w-4/5 mx-auto bg-white/50 px-4 py-2 box-content rounded-lg divide-y divide-emerald/20 divide-dashed">
+          <dl className="grid grid-cols-items-2 gap-x-6 w-4/5 mx-auto sp:w-auto bg-white/50 px-4 py-2 box-content rounded-lg divide-y divide-emerald/20 divide-dashed">
             {items.map((item) => (
               <div
                 className="grid grid-cols-subgrid col-span-2 p-2"
                 key={item.id}
               >
-                <dt className="flex items-center">
-                  <Link href={`/personal/${item.userId}`}>
-                    <IconUser iconSize="small" user={userById[item.userId]} />
-                  </Link>
-                  <span className="ml-0.5">さんの</span>
-                  <span className="font-semibold ml-0.5">{item.name}</span>
+                <dt className="flex items-center sp:flex-col sp:items-start">
+                  <div className="flex items-center">
+                    <Link href={`/personal/${item.userId}`}>
+                      <IconUser iconSize="small" user={userById[item.userId]} />
+                    </Link>
+                    <span className="ml-0.5">さんの</span>
+                  </div>
+                  <span className="font-semibold ml-0.5 sp:mt-1 sp:text-base">
+                    {item.name}
+                  </span>
                 </dt>
-                <dd className="text-right">{item.stock} 個</dd>
+                <dd className="text-right flex items-center justify-end">
+                  {item.stock} 個
+                </dd>
               </div>
             ))}
           </dl>
