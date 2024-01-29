@@ -6,9 +6,10 @@ import { fetchAsyncToJson } from '@/utils/fetch';
 import { ChevronLeftIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { GetServerSideProps, NextPage } from 'next';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useRouter } from 'next/router';
+import { useCallback, useMemo } from 'react';
 
 type Params = {
   id: string;
@@ -20,13 +21,18 @@ type Props = {
 
 const PersonalPage: NextPage<Props> = ({ data }) => {
   const { data: session } = useSession();
+  const router = useRouter();
   const isMyPage = useMemo<boolean>(
     () => data.id === session?.user.id,
     [session, data]
   );
+  const handleClick = useCallback(() => {
+    signOut();
+    router.push('/');
+  }, [router]);
   return (
     <Layout>
-      <h1 className="text-center py-8">
+      <h1 className="text-center py-8 flex items-center flex-col">
         <img
           src={data.image}
           alt={`${data.name}さんのアイコン`}
@@ -36,12 +42,20 @@ const PersonalPage: NextPage<Props> = ({ data }) => {
         />
         <span className="mt-2 block text-xl">{data.name}さんの冷蔵庫</span>
         {isMyPage && (
-          <Link
-            href="/add"
-            className="mt-2 block bg-white py-2 px-4 w-fit mx-auto rounded-lg text-sm font-semibold text-light-text transition-colors hover:bg-citron"
-          >
-            新しく入れる
-          </Link>
+          <div className="flex space-x-4 items-center mt-2">
+            <Link
+              href="/add"
+              className="block bg-white py-2 px-4 w-fit rounded-lg text-sm font-semibold text-light-text transition-colors hover:bg-citron"
+            >
+              新しく入れる
+            </Link>
+            <button
+              className="bg-red py-2 px-4 w-fit rounded-lg text-sm font-semibold text-white transition-colors hover:bg-red/85"
+              onClick={handleClick}
+            >
+              ログアウト
+            </button>
+          </div>
         )}
       </h1>
       <section className="mt-4">
