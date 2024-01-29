@@ -3,7 +3,7 @@ import { Layout } from '@/components/Layout';
 import { User } from '@/types/user';
 import { FetchError } from '@/utils/FetchError';
 import { fetchAsyncToJson } from '@/utils/fetch';
-import { ChevronLeftIcon } from '@heroicons/react/16/solid/index.js';
+import { ChevronLeftIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { GetServerSideProps, NextPage } from 'next';
 import { useSession } from 'next-auth/react';
