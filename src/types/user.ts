@@ -7,6 +7,6 @@ export type User = {
   name: string;
   image: string;
   items?: Item[] | undefined;
-  news?: News | undefined;
+  news?: News;
   updatedAt?: Timestamp;
 };
