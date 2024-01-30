@@ -19,6 +19,20 @@ const config: Config = {
         'items-2': '1fr max-content',
         'items-3': '1fr max-content max-content',
       },
+      keyframes: {
+        news: {
+          '0%': { transform: 'translateY(60px)' },
+          '30%': { transform: 'translateY(60px)' },
+          '33%': { transform: 'translateY(20px)' },
+          '63%': { transform: 'translateY(20px)' },
+          '66%': { transform: 'translateY(-20px)' },
+          '96%': { transform: 'translateY(-20px)' },
+          '100%': { transform: 'translateY(-60px)' },
+        },
+      },
+      animation: {
+        news: '9s ease-in-out 0s infinite normal none news',
+      },
     },
     screens: {
       sp: { max: '700px' },
