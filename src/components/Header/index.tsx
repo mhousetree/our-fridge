@@ -71,7 +71,7 @@ export const Header: React.FC<Props> = ({ isHome = false }) => {
         <div className="bg-citron w-screen h-6 absolute left-0 top-0 flex justify-center space-x-4 items-center overflow-hidden">
           <div className="max-w-2xl flex items-center space-x-4">
             <p className="w-max break-keep font-bold text-sm">最新情報</p>
-            <ul className="flex space-y-5 justify-center w-max flex-col animate-news">
+            <ul className="flex space-y-5 justify-center w-max flex-col animate-news sp:animate-news-sp">
               {news.map((item, index) => {
                 let operation = '';
                 switch (item.news.type) {

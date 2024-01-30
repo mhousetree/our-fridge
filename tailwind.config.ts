@@ -29,9 +29,19 @@ const config: Config = {
           '96%': { transform: 'translateY(-20px)' },
           '100%': { transform: 'translateY(-60px)' },
         },
+        'news-sp': {
+          '0%': { transform: 'translateY(52.5px)' },
+          '30%': { transform: 'translateY(52.5px)' },
+          '33%': { transform: 'translateY(17.5px)' },
+          '63%': { transform: 'translateY(17.5px)' },
+          '66%': { transform: 'translateY(-17.5px)' },
+          '96%': { transform: 'translateY(-17.5px)' },
+          '100%': { transform: 'translateY(-52.5px)' },
+        },
       },
       animation: {
         news: '9s ease-in-out 0s infinite normal none news',
+        'news-sp': '9s ease-in-out 0s infinite normal none news-sp',
       },
     },
     screens: {
