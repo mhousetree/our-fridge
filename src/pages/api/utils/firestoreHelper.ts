@@ -24,6 +24,10 @@ export const getItems = async (): Promise<NonNullable<Item[]>> => {
   const itemsRef = db.collection('items');
   const snapshot = await itemsRef.get();
 
+  if (snapshot.size === 0) {
+    return [];
+  }
+
   const items: Item[] = [];
   snapshot.forEach((item) => {
     items.push({ ...item.data(), id: item.id } as Item);
@@ -126,6 +130,10 @@ export const getUsers = async (): Promise<NonNullable<User[]>> => {
   const usersRef = db.collection('users');
   const snapshot = await usersRef.get();
 
+  if (snapshot.size === 0) {
+    return [];
+  }
+
   const users: User[] = [];
   snapshot.forEach((user) => {
     users.push({ ...user.data(), id: user.id } as User);
@@ -137,6 +145,10 @@ export const getUsers = async (): Promise<NonNullable<User[]>> => {
 export const getUsersSortByUpdate = async (): Promise<NonNullable<User[]>> => {
   const usersRef = db.collection('users').orderBy('updatedAt', 'desc').limit(3);
   const snapshot = await usersRef.get();
+
+  if (snapshot.size === 0) {
+    return [];
+  }
 
   const users: User[] = [];
   snapshot.forEach((user) => {

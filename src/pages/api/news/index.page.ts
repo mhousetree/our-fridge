@@ -11,6 +11,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const users = await getUsersSortByUpdate();
+
     const news = users.map((user) => {
       return {
         userName: user.name,
