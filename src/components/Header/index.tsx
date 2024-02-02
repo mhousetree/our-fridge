@@ -64,7 +64,7 @@ export const Header: React.FC<Props> = ({ isHome = false }) => {
   }, [session, user, isLoading]);
 
   const renderNewsBar = useCallback(() => {
-    if (news === undefined) {
+    if (news === undefined || news.length === 0) {
       return <></>;
     } else {
       return (
